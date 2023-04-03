@@ -1,0 +1,39 @@
+from aiogram.types import ReplyKeyboardMarkup,KeyboardButton
+categoryMenu = ReplyKeyboardMarkup(
+    keyboard=[
+    [
+        KeyboardButton(text="IT/DASTURLASH"),
+    ],
+    [
+        KeyboardButton(text="SMM/KOPIRAYTING/TARGETING"),
+    ],
+    [  
+        KeyboardButton(text="DIZAYN"),
+    ],
+    [    
+        KeyboardButton(text="SEO/TRAFIK"),
+    ],
+    [
+        KeyboardButton(text="TARJIMON"),
+    ],
+    [    
+        KeyboardButton(text="AUDIO/VIDEO/MONTAJ"),
+    ],
+    [   
+        KeyboardButton(text="BUXGATERIYA/FINANCE")
+    ],
+    [   
+        KeyboardButton(text="OPERATOR/LOGISTIKA/OFFICE_MANAGER")
+    ],
+    [   
+        KeyboardButton(text="SOTUV/MARKETING/HR")
+    ],
+    [   
+        KeyboardButton(text="USTOZ")
+    ],
+    [   
+        KeyboardButton(text="TAYYOR")
+    ],
+    ],
+    resize_keyboard=True
+)
