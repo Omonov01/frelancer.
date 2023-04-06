@@ -52,6 +52,8 @@ async def movetoempoffer(message : types.Message,state:FSMContext):
             elon += f"Ishlatiladigan texnologiyalar : {project_technology}\n"
             # print(elon)
             await message.answer(elon)
+            if post == 0:
+                 await message.answer("Siz hali bironta ham e'lon yaratmagansiz!!!")
     except asyncpg.exceptions.UniqueViolationError:
             pass
     

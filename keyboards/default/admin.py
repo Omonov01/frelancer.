@@ -6,9 +6,9 @@ admin = ReplyKeyboardMarkup(
                KeyboardButton(text="statistika"),
                KeyboardButton(text="reklama"),
        ],
-       [
-               KeyboardButton(text="csv"),
-       ],
+#        [
+#                KeyboardButton(text="csv"),
+#        ],
        [       
                KeyboardButton(text=" ⬅️ Orqaga"),
        ],

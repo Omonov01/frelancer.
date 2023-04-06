@@ -87,11 +87,11 @@ async def movetofrshot(message : types.Message,state:FSMContext):
     await message.answer("Hozircha bu funksiyamiz ishlamayapti siz to'g'ridan to'gri mijoz bilan kelishishingiz kerak")
     #await userposition.frilansbalansposition.set()
 
-###Frilanser pulni chiqarib oladi
-# @dp.message_handler(text="⬅️  Orqaga",state=userposition.frilansbalansposition)
-# async def backtofrwindow(message : types.Message,state:FSMContext):
-#     await message.answer("Shaxsiy oyna",reply_markup=frilans_menu)
-#     await userposition.frilansposition.set()
+##Frilanser pulni chiqarib oladi
+@dp.message_handler(text="⬅️  Orqaga",state=userposition.frilansbalansposition)
+async def backtofrwindow(message : types.Message,state:FSMContext):
+    await message.answer("Shaxsiy oyna",reply_markup=frilans_menu)
+    await userposition.frilansposition.set()
 
 ###Frilanser sozlamalar bo'limiga kirib shaxsiy malumotlarini o'zgartiradi
 # @dp.message_handler(text="⚙️ Sozlamalar",state=userposition.frilansposition)

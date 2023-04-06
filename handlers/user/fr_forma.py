@@ -9,13 +9,6 @@ from keyboards.default.category import categoryMenu
 from keyboards.default.base_window import base_menu
 from keyboards.default.frilanser_window import frilans_menu
 
-###Forma ni ishga tushirish
-# @dp.message_handler(text="Forma", state=userposition.baseposition)
-# async def beginform(message: types.Message, state: FSMContext):
-    # await message.answer("Assalom alaykum bu bo'limni to'ldirganingizdan keyin biz sizga sizning sohangizga mos bo'lgan ish elonlarini junatamiz")
-    # await message.answer("Ismingizni kiriting!!!")
-    # await personaldata.name.set()
-
 ###ismni olish
 @dp.message_handler(state=personaldata.name)
 async def answer_name(message: types.Message, state: FSMContext):
@@ -63,7 +56,7 @@ async def answer_category(message : types.Message, state: FSMContext):
             {"categoriya":a}
             )
     elif message.text == "TAYYOR":
-        await message.answer("Siz foydalanadigan texnologiyalarni kiriting.\n Masalan :Django,sql,Telegram_bot \n 200 ta belgidan oshirmang.")
+        await message.answer("Siz foydalanadigan texnologiyalarni kiriting.\n 200 ta belgidan oshirmang.")
         await personaldata.technologies.set()
    
     
@@ -116,7 +109,7 @@ async def funcyes_no(message : types.Message, state : FSMContext):
             )
         except asyncpg.exceptions.UniqueViolationError:
             pass
-        await message.answer("Barcha malumotlaringiz muvaffaqqiyatli saqlandi.Sizga loyiq ish topilishi bilansizga murojaat qilamiz!!!",reply_markup=frilans_menu)
+        await message.answer("Barcha malumotlaringiz muvaffaqqiyatli saqlandi.Sizga loyiq ish topilishi bilan sizga murojaat qilamiz!!!",reply_markup=frilans_menu)
         await userposition.frilansposition.set()
     elif message.text == "Yo'q":
         await message.answer("Malumotlaringizni boshqattan kiriting",reply_markup=base_menu)

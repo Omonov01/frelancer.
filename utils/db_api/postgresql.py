@@ -18,9 +18,9 @@ class Database:
     async def create(self):
         self.pool = await asyncpg.create_pool(
             user="postgres",
-            port="5721",
-            password="PaswHcvNR1o8Fk1Y1fHO",
-            host="containers-us-west-160.railway.app",
+            port="6869",
+            password="EAkNzKsh5hG7SJW2LMBh",
+            host="containers-us-west-119.railway.app",
             database="railway"
         )
 
@@ -91,6 +91,13 @@ class Database:
         sql = "SELECT telegram_id FROM freelancer_db WHERE freelancer_db.telegram_id = $1"
         return await self.execute(sql,telegramid,fetchval=True)
     
+
+    ### freelancerga category id ni berib undan telegram_idni olamiz va reklama junatamiz
+    async def call_freelancer_id_look_category_id(self,categoryid):
+        sql = "SELECT telegram_id FROM freelancer_db WHERE freelancer_db.fk_category_id = $1"
+        return await self.execute(sql,categoryid,fetch=True)
+    
+
     ### categoriyaga categoriya nomini berib undan idni qaytarib oladi
     async def call_category_id(self,category_name):
         sql = "SELECT category_id FROM category_db WHERE category_db.category = $1"
@@ -126,11 +133,39 @@ class Database:
         sql = "SELECT COUNT(*) FROM post_db"
         return await self.execute(sql,fetchval=True)
     
+    ###big_empdagi barcha odamlar soni chiqarish
     async def call_count_big_emp(self):
         sql = "SELECT COUNT(*) FROM big_employee"
         return await self.execute(sql,fetchval=True)
     
-    # ### employeega o'zi haqidagi malumotlarni uzatish
+
+    ###big_employeeni csvga ko'chirish
+    # async def csv_big_emp(self):
+    #     sql = "copy (SELECT * FROM big_employee) TO 'big_emp.csv' DELIMITER ',' CSV HEADER" 
+    #     return await self.execute(sql,fetch=True)
+    
+    
+    
+    
+    ###frlarni categoriyasi buyicha sonini chiqarish
+    # async def call_frnumber_to_category(self):
+    #     sql = "SELECT * FROM freelancer_db INNER JOIN category_db ON freelancer_db.fk_category_id = category_db.category_id ORDER BY category_db.category_id"
+    #     return await self.execute(sql,fetch=True)
+    
+
+    # ###postlarni categoriyasi buyicha sonini chiqarish
+    # async def call_postnumber_to_category(self):
+    #     sql = "SELECT * FROM post_db INNER JOIN category_db ON post_db.fk_category_post_id = category_db.category_id ORDER BY post_db.post_id"
+    #     return await self.execute(sql,fetch=True)
+    
+
+    # #### kategoriya_idsi berilganda uni nomiga o'zgartirish
+    # async def change_categoryid_to_categoryname(self,category_id):
+    #     sql = "SELECT category FROM category_db WHERE category_id = $1"
+    #     return await self.execute(sql,category_id,fetch=True)
+    
+    
+    ### employeega o'zi haqidagi malumotlarni uzatish
     # async def call_employee_information(self,telegramid):
     #     sql = "SELECT * FROM employee_db WHERE employee_db.telegram_id = $1"
     #     return await self.execute(sql,telegramid,fetchrow=True)

@@ -7,7 +7,7 @@ from utils.set_bot_commands import set_default_commands
 async def on_startup(dispatcher):
     ### Database connection
     await db.create()
-    print("Railwayga ulandik")
+    # print("Railwayga ulandik")
     # ### Bazalarni yaratish
     # await db.employee_db()
     # print("employee_db yaratildi")
@@ -20,7 +20,7 @@ async def on_startup(dispatcher):
     # await db.big_employee()
     # print("big_employee yaratildi")
     # print("Barcha bazalar yasaldi")
-    # Birlamchi komandalar (/star va /help)
+    #Birlamchi komandalar (/star va /help)
     
     await set_default_commands(dispatcher)
 

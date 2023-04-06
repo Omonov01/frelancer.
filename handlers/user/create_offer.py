@@ -1,4 +1,5 @@
 import asyncpg
+import asyncio
 from aiogram import types
 from loader import dp,db
 from aiogram.dispatcher import FSMContext
@@ -7,6 +8,7 @@ from states.forma import userposition
 from keyboards.default.additional_buttons import yes_no
 from keyboards.default.employee_window import employee_menu
 from keyboards.default.category import categoryMenu
+from data.config import channel
 ###Forma ni ishga tushirish
 @dp.message_handler(text="📥  Buyurtma yaratish", state=userposition.employeeposition)
 async def beginform(message: types.Message, state: FSMContext):
@@ -120,8 +122,11 @@ async def funcyes_no(message : types.Message, state : FSMContext):
                 fk_category_post_id=categoriya,
                 fk_employee_telegram_id=message.from_user.id
             )
-        except asyncpg.exceptions.UniqueViolationError:
+
+        except:
             pass
+        
+
         await message.answer("Barcha malumotlaringiz muvaffaqqiyatli saqlandi.Siz shaxsiy oynangizda oz elonlarinigizni nazorat qilishingiz mumkin.!!!",reply_markup=employee_menu)
         await userposition.employeeposition.set()
     elif message.text == "Yo'q":

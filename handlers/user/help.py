@@ -8,6 +8,6 @@ from loader import dp
 async def bot_help(message: types.Message):
     text = ("Buyruqlar: ",
             "/start - Botni ishga tushirish",
-            "/help - Yordam")
+            "/help - Bot orqali siz uzingizga malakali hodim va frilanserlarni yollashingiz yoki o'zingizga mos ish topishingiz mumkin!")
     
     await message.answer("\n".join(text))
