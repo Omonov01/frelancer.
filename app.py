@@ -7,20 +7,20 @@ from utils.set_bot_commands import set_default_commands
 async def on_startup(dispatcher):
     ### Database connection
     await db.create()
-    print("Railwayga ulandik")
-    ### Bazalarni yaratish
-    await db.employee_db()
-    print("employee_db yaratildi")
-    await db.category_db()
-    print("category_db yaratildi. Keyingi safar uchurib quy")
-    await db.freelancer_db()
-    print("freelancer_db yaratildi")
-    await db.post_db()
-    print("post_db yaratildi")
-    await db.big_employee()
-    print("big_employee yaratildi")
-    print("Barcha bazalar yasaldi")
-    #Birlamchi komandalar (/star va /help)
+#     print("Railwayga ulandik")
+#     ### Bazalarni yaratish
+#     await db.employee_db()
+#     print("employee_db yaratildi")
+#     await db.category_db()
+#     print("category_db yaratildi. Keyingi safar uchurib quy")
+#     await db.freelancer_db()
+#     print("freelancer_db yaratildi")
+#     await db.post_db()
+#     print("post_db yaratildi")
+#     await db.big_employee()
+#     print("big_employee yaratildi")
+#     print("Barcha bazalar yasaldi")
+#     #Birlamchi komandalar (/star va /help)
     
     await set_default_commands(dispatcher)
 
