@@ -1,31 +1,36 @@
 from aiogram.types import InlineKeyboardButton,InlineKeyboardMarkup
-from keyboards.inline.callback import IT_callback,SALES_callback,SEO_callback,SMM_callback,FINANCE_callback,OPERATOR_callback,TARJIMONLIK_callback,TEACHER_callback,DIZAYN_callback,MONTAJ_callback
+
+
 categoryMenu = InlineKeyboardMarkup(
     inline_keyboard=[
     [
-        InlineKeyboardButton(text="IT va Dasturlash", callback_data="IT"),
+        InlineKeyboardButton(text="IT/DASTURLASH", callback_data="IT/DASTURLASH"),
     ],
     [
-        InlineKeyboardButton(text="Dizayn", callback_data="Dizayn"),
-    ],
-    [  
-        InlineKeyboardButton(text="Seo va Trafik", callback_data="Seo va Trafik"),
-    ],
-    [    
-        InlineKeyboardButton(text="Ijtimoit tarmoq va reklama", callback_data="ijtimoiy tarmoq"),
+        InlineKeyboardButton(text="SMM/KOPIRAYTING/TARGETING", callback_data="SMM/KOPIRAYTING/TARGETING"),
     ],
     [
-        InlineKeyboardButton(text="Tekstlar va tarjimalar", callback_data="Tekstlar va tarjimalar"),
+        InlineKeyboardButton(text="DIZAYN", callback_data="DIZAYN"),
     ],
-    [    
-        InlineKeyboardButton(text="Audio,Video,Montaj", callback_data="Montaj"),
+    [
+        InlineKeyboardButton(text="SEO/TRAFIK", callback_data="SEO/TRAFIK"),
     ],
-    [   
-        InlineKeyboardButton(text="Targeting",calback_data="Targeting")
+    [
+        InlineKeyboardButton(text="TARJIMON", callback_data="TARJIMON"),
     ],
-    [   
-        InlineKeyboardButton(text="Tayyor",calback_data="Tayyor")
+    [
+        InlineKeyboardButton(text="AUDIO/VIDEO/MONTAJ", callback_data="AUDIO/VIDEO/MONTAJ"),
     ],
-    
-]
-)
+    [
+        InlineKeyboardButton(text="BUXGATERIYA/FINANCE", callback_data="BUXGATERIYA/FINANCE"),
+    ],
+    [
+        InlineKeyboardButton(text="OPERATOR/LOGISTIKA/OFFICE_MANAGER", callback_data="OPERATOR/LOGISTIKA/OFFICE_MANAGER"),
+    ],
+    [
+        InlineKeyboardButton(text="SOTUV/MARKETING/HR", callback_data="SOTUV/MARKETING/HR"),
+    ],
+    [
+        InlineKeyboardButton(text="USTOZ", callback_data="USTOZ"),
+    ]
+    ])

@@ -1,5 +1,6 @@
 import asyncpg
 from aiogram import types
+from aiogram.types import ReplyKeyboardRemove
 from keyboards.default.base_window import base_menu
 from keyboards.default.employee_window import employee_menu 
 from keyboards.default.settings import settings_menu 
@@ -18,8 +19,8 @@ async def movetoempwindow(message : types.Message,state:FSMContext):
             employee_position =  await userposition.employeeposition.set()
             return [button,employee_position]
         else:
-            matn = await message.answer("Assalom alaykum shaxsiy oynangizni yaratganingizdan keyin siz freelancerlar uchun ish elonlarini yaratishingiz mumkin")
-            ism = await message.answer("Ismingizni kiriting!!!")
+            matn = await message.answer("Assalom alaykum shaxsiy oynangizni yaratganingizdan keyin siz freelancerlar uchun ish e'lonlarini yaratishingiz mumkin.")
+            ism = await message.answer("Ismingizni kiriting!!!",reply_markup=ReplyKeyboardRemove())
             forma_position = await emppersonaldata.empname.set()
             return [matn,ism,forma_position]
     except asyncpg.exceptions.UniqueViolationError:
@@ -62,7 +63,7 @@ async def movetoempoffer(message : types.Message,state:FSMContext):
 ###Kelgan takliflarni ko'rish
 @dp.message_handler(text="✅ Bergan elonlarim uchun takliflar",state=userposition.employeeposition)
 async def movetoemprequest(message : types.Message,state:FSMContext):
-    await message.answer("Bu oynamiz hozir ishlagani yuq.Biz siz bergan elonni tog'ridan to'g'ri botga yuklaymiz va shu kategoriya bilan ruyxatdan o'tgan frilanserlarga junatamiz. Bog'lanish uchun qoldirgan linkingiz orqali ular sizga bog'lanishadi.Rahmat")
+    await message.answer("Bu oynamiz hozir ishlagani yuq. Biz siz bergan e'lonni tog'ridan to'g'ri botga yuklaymiz va shu kategoriya bilan ruyxatdan o'tgan frilanserlarga junatamiz. Bog'lanish uchun qoldirgan linkingiz orqali ular sizga bog'lanishadi.Rahmat")
     #await userposition.frilansposition.set()
 
 

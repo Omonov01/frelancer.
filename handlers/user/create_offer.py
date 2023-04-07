@@ -1,18 +1,19 @@
 import asyncpg
 import asyncio
 from aiogram import types
+from aiogram.types import Message, CallbackQuery
 from loader import dp,db
 from aiogram.dispatcher import FSMContext
 from states.forma import project
 from states.forma import userposition
 from keyboards.default.additional_buttons import yes_no
 from keyboards.default.employee_window import employee_menu
-from keyboards.default.category import categoryMenu
+from keyboards.inline.category import categoryMenu
 from data.config import channel
 ###Forma ni ishga tushirish
 @dp.message_handler(text="📥  Buyurtma yaratish", state=userposition.employeeposition)
 async def beginform(message: types.Message, state: FSMContext):
-    await message.answer("Assalom alaykum bu bo'limni to'ldirganingizdan biz siz yaratgan elonni shu sohada mutaxasislariga junatamiz!!")
+    await message.answer("Assalom alaykum bu bo'limni to'ldirganingizdan keyin biz siz yaratgan e'lonni shu soha mutaxasislariga junatamiz!!!")
     await message.answer("Loyihangiz nomini kiriting!!!")
     await project.projectname.set()
 
@@ -36,7 +37,7 @@ async def answer_descriotion(message: types.Message, state: FSMContext):
     await state.update_data(
         {"projectdescription":projectdescription}
     )
-    await message.answer("Siz bilan bog'lanish uchun malumot qoldiring \n Telefon raqamingiz yoki telegram akkauntingiz!!!")
+    await message.answer("Siz bilan bog'lanish uchun malumot qoldiring. \n Telefon raqamingiz yoki telegram akkauntingiz!!!")
     await project.projectlink.set()
 
 ###project linkini olish
@@ -57,7 +58,19 @@ async def answer_cost(message: types.Message, state: FSMContext):
         {"projectcost": projectcost}
     )
 
-    await message.answer("Projectingizni qurishda qaysi texnologiyalardan foydalanishni istaysiz? ")
+    await message.answer("Bergan ish e'loningiz qaysi soha hodimlariga ko'rsatilishini hoxlaysiz?",reply_markup=categoryMenu)
+    await project.projectcategoriya.set()
+
+### project categoriyasini olish va malumotlarni userga junatish
+@dp.callback_query_handler(text=["USTOZ","SOTUV/MARKETING/HR","OPERATOR/LOGISTIKA/OFFICE_MANAGER","BUXGATERIYA/FINANCE","AUDIO/VIDEO/MONTAJ","TARJIMON","SEO/TRAFIK","DIZAYN","SMM/KOPIRAYTING/TARGETING","IT/DASTURLASH"],state=project.projectcategoriya)
+async def answer_category(call: CallbackQuery,state : FSMContext):
+    projectcategory = call.data
+    await state.update_data(
+        {"projectcategory":projectcategory}
+    )
+    await call.message.delete()
+
+    await call.message.answer("Loyihangizda qaysi texnologiyalardan foydalanilishini xohlaysiz?")
     await project.projecttechnologies.set()
 
 ###project texnologiyasini olish
@@ -68,17 +81,11 @@ async def answer_technology(message: types.Message, state: FSMContext):
         {"projecttechnologies": projecttechnologies}
     )
 
-    await message.answer("Bergan ish eloningiz qaysi soha hodimlariga ko'rsatilishini hoxlaysiz?",reply_markup=categoryMenu)
+    await message.answer("Loyihangiz to'g'risida quyidagi malumotlar kiritildi.")
     await project.projectcategoriya.set()
 
-### project categoriyasini olish va malumotlarni userga junatish
-@dp.message_handler(state=project.projectcategoriya)
-async def answer_category(message: types.Message,state : FSMContext):
-    projectcategory = message.text
-    await state.update_data(
-        {"projectcategory":projectcategory}
-    )
-    await message.answer("Malumotlaringiz to'gri kiritilganmi?")
+
+    # await call.answer("Malumotlaringiz to'gri kiritilganmi?")
     data = await state.get_data()
     projectname = data.get("projectname")
     projectdescription = data.get("projectdescription")
@@ -88,16 +95,16 @@ async def answer_category(message: types.Message,state : FSMContext):
     projectcategory = data.get("projectcategory")
    
 
-    msg = "Quyidai ma`lumotlar qabul qilindi:\n"
-    msg += f"Project nomi - {projectname}\n"
-    msg += f"Project haqida malumot - {projectdescription}\n"
+    msg = "Quyidagi malumotlar qabul qilindi:\n"
+    msg += f"Loyiha nomi - {projectname}\n"
+    msg += f"Loyiha haqida malumot - {projectdescription}\n"
     msg += f"Bog'lanish uchun manbaa - {projectlink}\n"
-    msg += f"Project uchun ajratilgan mablag' - {projectcost}\n"
-    msg += f"Projectda ishlatiladigan texnologiyalar - {projecttechnologies}\n"
-    msg += f"Project categoriyasi: - {projectcategory}\n"
+    msg += f"Loyiha uchun ajratilgan mablag' - {projectcost}\n"
+    msg += f"Loyihada ishlatiladigan texnologiyalar - {projecttechnologies}\n"
+    msg += f"Loyiha categoriyasi: - {projectcategory}\n"
 
     await message.answer(msg)
-    await message.answer("Malumotlaringiz To'g'ri kiritilganmi?",reply_markup=yes_no)
+    await message.answer("Malumotlaringiz to'g'ri kiritilganmi?",reply_markup=yes_no)
     await project.projectempyes_no.set()   
 
 ### project malumotlarini saqlash
@@ -127,8 +134,8 @@ async def funcyes_no(message : types.Message, state : FSMContext):
             pass
         
 
-        await message.answer("Barcha malumotlaringiz muvaffaqqiyatli saqlandi.Siz shaxsiy oynangizda oz elonlarinigizni nazorat qilishingiz mumkin.!!!",reply_markup=employee_menu)
+        await message.answer("Barcha malumotlaringiz muvaffaqqiyatli saqlandi.Siz shaxsiy oynangizda o'z e'lonlarinigizni nazorat qilishingiz mumkin!!!",reply_markup=employee_menu)
         await userposition.employeeposition.set()
     elif message.text == "Yo'q":
-        await message.answer("Malumotlaringizni boshqattan kiriting",reply_markup=employee_menu)
+        await message.answer("Malumotlaringizni boshqattan kiriting.",reply_markup=employee_menu)
         await userposition.employeeposition.set()

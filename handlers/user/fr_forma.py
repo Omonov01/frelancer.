@@ -1,11 +1,12 @@
 import asyncpg
 from aiogram import types
+from aiogram.types import CallbackQuery
 from loader import dp,db
 from aiogram.dispatcher import FSMContext
 from states.forma import personaldata
 from states.forma import userposition
 from keyboards.default.additional_buttons import phonenumber,yes_no
-from keyboards.default.category import categoryMenu
+from keyboards.inline.category import categoryMenu
 from keyboards.default.base_window import base_menu
 from keyboards.default.frilanser_window import frilans_menu
 
@@ -40,24 +41,20 @@ async def answer_phone(message: types.Message, state: FSMContext):
         {"phone": phone}
     )
 
-    await message.answer("Quyidagilardan qaysi sohada faoliyat yuritasiz.Sohangizni belgilagandan keyin Tayyor tugmasini bosing!",reply_markup=categoryMenu)
+    await message.answer("Quyidagilardan qaysi sohada faoliyat yuritasiz.",reply_markup=categoryMenu)
     await personaldata.categoriya.set()
 
 ###personaldata categoriyani olish
-@dp.message_handler(state=personaldata.categoriya)
-async def answer_category(message : types.Message, state: FSMContext):
-    categoriya = message.text
-    category_list = []
-    if message.text != "TAYYOR":
-        category_list.append(categoriya)
-        # print(category_list)
-        for a in category_list:
-            await state.update_data(
-            {"categoriya":a}
+@dp.callback_query_handler(text=["USTOZ","SOTUV/MARKETING/HR","OPERATOR/LOGISTIKA/OFFICE_MANAGER","BUXGATERIYA/FINANCE","AUDIO/VIDEO/MONTAJ","TARJIMON","SEO/TRAFIK","DIZAYN","SMM/KOPIRAYTING/TARGETING","IT/DASTURLASH"],state=personaldata.categoriya)
+async def answer_category(call: CallbackQuery,state : FSMContext):
+    projectcategory = call.data
+    await state.update_data(
+            {"categoriya":projectcategory}
             )
-    elif message.text == "TAYYOR":
-        await message.answer("Siz foydalanadigan texnologiyalarni kiriting.\n 200 ta belgidan oshirmang.")
-        await personaldata.technologies.set()
+    await call.message.delete()
+   
+    await call.message.answer("Siz foydalanadigan texnologiyalarni kiriting.\n 200 ta belgidan oshirmang.")
+    await personaldata.technologies.set()
    
     
 

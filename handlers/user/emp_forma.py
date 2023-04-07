@@ -47,7 +47,7 @@ async def answer_phone(message: types.Message, state: FSMContext):
     phone = data.get("phone")
    
 
-    msg = "Quyidai ma`lumotlar qabul qilindi:\n"
+    msg = "Quyidagi ma`lumotlar qabul qilindi:\n"
     msg += f"Ismingiz - {name}\n"
     msg += f"Familiyangiz - {fullname}\n"
     msg += f"Telefon: - {phone}\n"
@@ -72,7 +72,7 @@ async def funcyes_no(message : types.Message, state : FSMContext):
             )
         except asyncpg.exceptions.UniqueViolationError:
             pass
-        await message.answer("Barcha malumotlaringiz muvaffaqqiyatli saqlandi.Siz shaxsiy oynangizda oz elonlarinigizni nazorat qilishingiz mumkin.!!!",reply_markup=employee_menu)
+        await message.answer("Barcha malumotlaringiz muvaffaqqiyatli saqlandi.Siz bu oynada o'z frelancerlar uchun ish e'lonlarini yaratishingiz mumkin!!!",reply_markup=employee_menu)
         await userposition.employeeposition.set()
     elif message.text == "Yo'q":
         await message.answer("Malumotlaringizni boshqattan kiriting",reply_markup=base_menu)

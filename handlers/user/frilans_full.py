@@ -1,5 +1,6 @@
 import asyncpg
 from aiogram import types
+from aiogram.types import ReplyKeyboardRemove
 from keyboards.default.base_window import base_menu
 from keyboards.default.frilanser_window import frilans_menu 
 from keyboards.default.settings import settings_menu 
@@ -18,8 +19,8 @@ async def movetofrwindow(message : types.Message,state:FSMContext):
             employee_position = await userposition.frilansposition.set()
             return [button,employee_position]
         else:
-            matn = await message.answer("Assalom alaykum bu bo'limni to'ldirganingizdan keyin biz sizga sizning sohangizga mos bo'lgan ish elonlarini junatamiz")
-            ism = await message.answer("Ismingizni kiriting!!!")
+            matn = await message.answer("Assalom alaykum!\n Bu bo'limni to'ldirganingizdan keyin biz sizga sizning sohangizga mos bo'lgan ish e'lonlarini junatamiz")
+            ism = await message.answer("Ismingizni kiriting!!!",reply_markup=ReplyKeyboardRemove())
             forma_position = await personaldata.name.set()
             return [matn,ism,forma_position]
     except asyncpg.exceptions.UniqueViolationError:
