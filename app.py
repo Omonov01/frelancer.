@@ -11,7 +11,7 @@ async def on_startup(dispatcher):
     ### Bazalarni yaratish
     await db.employee_db()
     print("employee_db yaratildi")
-    await db.category_db()
+#     await db.category_db()
 #     print("category_db yaratildi. Keyingi safar uchurib quy")
     await db.freelancer_db()
     print("freelancer_db yaratildi")
