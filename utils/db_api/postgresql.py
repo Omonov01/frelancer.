@@ -18,9 +18,9 @@ class Database:
     async def create(self):
         self.pool = await asyncpg.create_pool(
             user="postgres",
-            port="7272",
-            password="bWeieGpFdqfr0gzOe2WO",
-            host="containers-us-west-48.railway.app",
+            port="7579",
+            password="aIzjTrkK52PPfrTqjsU0",
+            host="containers-us-west-202.railway.app",
             database="railway"
         )
 
